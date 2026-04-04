@@ -14,6 +14,27 @@ console.log("ERROR:", err);
 });
 }
 
+function login(){
+  let user = document.getElementById("username").value;
+  let pass = document.getElementById("password").value;
+
+  // akun sederhana
+  if(user === "admin" && pass === "123"){
+    localStorage.setItem("login", "true");
+
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("mainPage").style.display = "block";
+
+    loadDataExcel(); // 🔥 TARUH DI SINI
+  }
+}
+
+// cek saat pertama buka
+if(localStorage.getItem("login") === "true"){
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("mainPage").style.display = "block";
+}
+
 // 🔥 TAMPILKAN DATA
 function tampilkan(){
 let list = document.getElementById("listAlumni");
@@ -59,6 +80,3 @@ item.innerText =
 list.appendChild(item);
 });
 }
-
-// 🚀 JALANKAN
-loadDataExcel();
