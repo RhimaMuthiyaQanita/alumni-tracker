@@ -7,25 +7,37 @@
 </head>
 <body>
 
-<h1>Sistem Pelacakan Alumni</h1>
-<button onclick="loadDataExcel()">Ambil Data dari Excel</button>
-<h2>Tambah Data Alumni</h2>
+<!-- 🔒 LOGIN PAGE -->
 
-<input type="text" id="nama" placeholder="Nama Alumni">
-<input type="text" id="prodi" placeholder="Program Studi">
-<input type="text" id="tahun" placeholder="Tahun Lulus">
-<input type="text" id="pekerjaan" placeholder="Pekerjaan">
+<div id="loginPage">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
 
-<button onclick="tambahAlumni()">Tambah</button>
+<!-- 🔓 MAIN PAGE -->
 
-<h2>Cari Alumni</h2>
+<div id="mainPage" style="display:none;">
 
-<input type="text" id="search" placeholder="Cari nama...">
-<button onclick="cariAlumni()">Cari</button>
+  <h1>Sistem Pelacakan Alumni</h1>
+  <button onclick="loadDataExcel()">Ambil Data dari Excel</button>
 
-<h2>Data Alumni</h2>
+  <h2>Tambah Data Alumni</h2>
+  <input type="text" id="nama" placeholder="Nama Alumni">
+  <input type="text" id="prodi" placeholder="Program Studi">
+  <input type="text" id="tahun" placeholder="Tahun Lulus">
+  <input type="text" id="pekerjaan" placeholder="Pekerjaan">
+  <button onclick="tambahAlumni()">Tambah</button>
 
-<ul id="listAlumni"></ul>
+  <h2>Cari Alumni</h2>
+  <input type="text" id="search" placeholder="Cari nama...">
+  <button onclick="cariAlumni()">Cari</button>
+
+  <h2>Data Alumni</h2>
+  <ul id="listAlumni"></ul>
+
+</div>
 
 <script src="script.js"></script>
 
