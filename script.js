@@ -1,47 +1,20 @@
-let alumni = JSON.parse(localStorage.getItem("alumni")) || [
-{
-nama:"Budi",
-prodi:"Informatika",
-tahun:"2022",
-pekerjaan:"Programmer"
-}
-];
+let alumni = [];
 
-// tampilkan saat pertama buka
+// 🔥 LOAD DATA DARI GOOGLE SHEETS
+function loadDataExcel() {
+fetch("https://opensheet.elk.sh/19Q5RlqlZ2Wi1Y18gUcElKHvQak5JVNmykU5KIvrzdGM/1")
+.then(res => res.json())
+.then(data => {
+console.log("DATA:", data);
+alumni = data;
 tampilkan();
-
-function tambahAlumni(){
-let nama = document.getElementById("nama").value;
-let prodi = document.getElementById("prodi").value;
-let tahun = document.getElementById("tahun").value;
-let pekerjaan = document.getElementById("pekerjaan").value;
-
-if(nama === "" || prodi === "" || tahun === "" || pekerjaan === ""){
-alert("Isi semua data dulu!");
-return;
+})
+.catch(err => {
+console.log("ERROR:", err);
+});
 }
 
-let data = {
-nama:nama,
-prodi:prodi,
-tahun:tahun,
-pekerjaan:pekerjaan
-};
-
-alumni.push(data);
-
-// simpan ke localStorage
-localStorage.setItem("alumni", JSON.stringify(alumni));
-
-tampilkan();
-
-// reset input
-document.getElementById("nama").value="";
-document.getElementById("prodi").value="";
-document.getElementById("tahun").value="";
-document.getElementById("pekerjaan").value="";
-}
-
+// 🔥 TAMPILKAN DATA
 function tampilkan(){
 let list = document.getElementById("listAlumni");
 list.innerHTML="";
@@ -49,41 +22,43 @@ list.innerHTML="";
 alumni.forEach((a, index)=>{
 let item = document.createElement("li");
 
-item.innerText = a.nama + " | " + a.prodi + " | " + a.tahun + " | " + a.pekerjaan;
+item.innerText =
+(a["Nama Lulusan"] || "-") + " | " +
+(a["NIM"] || "-") + " | " +
+(a["Tahun Masuk"] || "-") + " | " +
+(a["Tanggal Lulus"] || "-") + " | " +
+(a["Fakultas"] || "-") + " | " +
+(a["Program Studi"] || "-");
 
-// tombol hapus
-let btn = document.createElement("button");
-btn.innerText = " Hapus";
-btn.onclick = function(){
-hapusAlumni(index);
-};
-
-item.appendChild(btn);
 list.appendChild(item);
 });
 }
 
+// 🔥 CARI DATA
 function cariAlumni(){
 let keyword = document.getElementById("search").value.toLowerCase();
 
 let hasil = alumni.filter(a =>
-a.nama.toLowerCase().includes(keyword)
+(a["Nama Lulusan"] || "").toLowerCase().includes(keyword)
 );
 
 let list = document.getElementById("listAlumni");
 list.innerHTML="";
 
-hasil.forEach((a, index)=>{
+hasil.forEach((a)=>{
 let item = document.createElement("li");
 
-item.innerText = a.nama + " | " + a.prodi + " | " + a.tahun + " | " + a.pekerjaan;
+item.innerText =
+(a["Nama Lulusan"] || "-") + " | " +
+(a["NIM"] || "-") + " | " +
+(a["Tahun Masuk"] || "-") + " | " +
+(a["Tanggal Lulus"] || "-") + " | " +
+(a["Fakultas"] || "-") + " | " +
+(a["Program Studi"] || "-");
 
 list.appendChild(item);
 });
 }
 
-function hapusAlumni(index){
-alumni.splice(index,1);
-localStorage.setItem("alumni", JSON.stringify(alumni));
-tampilkan();
-}
+// 🚀 JALANKAN
+loadDataExcel();
