@@ -1,25 +1,61 @@
-# alumni-tracker
+# 🎓 Alumni Tracker
 
-# Sistem Pelacakan Alumni
+Website sederhana untuk menampilkan dan mencari data alumni berdasarkan data dari Google Sheets.
 
-Aplikasi web sederhana untuk mencatat dan mencari data alumni.
+## 🚀 Fitur
 
-## Link Website
+* Menampilkan data alumni dari Google Sheets
+* Pencarian data berdasarkan nama
+* Sistem login untuk mengamankan akses data
+* Menampilkan informasi:
+
+  * Nama Lulusan
+  * NIM
+  * Tahun Masuk
+  * Tanggal Lulus
+  * Fakultas
+  * Program Studi
+
+## 🔐 Akun Login
+
+Untuk mengakses sistem, gunakan akun berikut:
+
+Username: admin
+Password: 123
+
+## 🌐 Demo Website
+
 https://alumni-tracker-virid.vercel.app/
 
-## Fitur
-- Menambahkan data alumni
-- Menampilkan data alumni
-- Mencari alumni berdasarkan nama
+## 🛠️ Teknologi
 
-## Pengujian Sistem
+* HTML
+* CSS
+* JavaScript
+* Google Sheets (sebagai database)
+* OpenSheet API
 
-| No | Fitur | Input | Expected Result | Result |
-|----|------|------|------|------|
-|1|Tambah Alumni|Nama: ...|Data alumni tersimpan|Berhasil|
-|2|Cari Alumni|...|Data alumni muncul|Berhasil|
-|3|Tampilkan Data|Klik tambah|Data tampil di list|Berhasil|
-| 4 | Hapus Data | Klik tombol hapus | Data terhapus dari list | Berhasil |
-| 5 | Penyimpanan Data | Refresh halaman | Data tetap ada | Berhasil |
-| 6 | Validasi Input | Kosongkan form | Tidak bisa tambah data | Berhasil |
+## 📊 Sumber Data
 
+Data diambil dari Google Sheets dan diubah menjadi JSON menggunakan OpenSheet:
+
+https://opensheet.elk.sh/
+
+## ⚙️ Cara Menjalankan
+
+1. Clone repository:
+
+   ```bash
+   git clone https://github.com/RhimaMuthiyaQanita/alumni-tracker.git
+   ```
+2. Buka file `index.html` di browser
+
+## 📌 Catatan
+
+* Data hanya digunakan untuk kepentingan pembelajaran
+* Dilarang menyebarkan data untuk kepentingan lain
+* Sistem dilengkapi login untuk membatasi akses pengguna
+
+## 👩‍💻 Author
+
+Dibuat oleh Tya Kal
