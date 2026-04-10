@@ -75,28 +75,12 @@ Pengujian dilakukan berdasarkan aspek kualitas sistem (fungsionalitas, keandalan
 
 > **Catatan:** Proses verifikasi dilakukan secara manual dengan membuka link PDDikti per alumni dan mencocokkan data nama, NIM, dan program studi. Status diperbarui setelah pengecekan manual selesai.
 
----
-
-## ⚙️ Cara Menjalankan
-
-1. Clone repository:
-   ```bash
-   git clone https://github.com/RhimaMuthiyaQanita/alumni-tracker.git
-   ```
-2. Buka file `index.html` di browser
-3. Login dengan akun yang tersedia
-4. Klik **Muat Ulang Data** untuk memuat data alumni dari Google Sheets
-5. Gunakan fitur **Verifikasi PDDikti** untuk memverifikasi data alumni
-
----
-
 ## 📌 Catatan
 
 - Data hanya digunakan untuk kepentingan pembelajaran
 - Dilarang menyebarkan data untuk kepentingan lain
 - Proses verifikasi PDDikti dilakukan secara manual — sistem membuka halaman PDDikti untuk setiap alumni
 
----
 
 ## 👩‍💻 Author
 
