@@ -1,45 +1,201 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="id">
 <head>
-  <title>Sistem Pelacakan Alumni</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Pelacakan Alumni UMM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- 🔒 LOGIN PAGE -->
-
-<div id="loginPage">
-  <h2>Login</h2>
-  <input type="text" id="username" placeholder="Username">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="login-wrapper">
+  <div class="login-card">
+    <div class="login-logo">🎓</div>
+    <h1 class="login-title">Alumni Tracker</h1>
+    <p class="login-sub">Universitas Muhammadiyah Malang</p>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="username" placeholder="Masukkan username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Masukkan password">
+    </div>
+    <button class="btn btn-primary btn-full" onclick="login()">Masuk</button>
+    <p id="loginError" class="error-msg" style="display:none;">Username atau password salah.</p>
+  </div>
 </div>
 
-<!-- 🔓 MAIN PAGE -->
-
+<!-- MAIN PAGE -->
 <div id="mainPage" style="display:none;">
 
-  <h1>Sistem Pelacakan Alumni</h1>
-  <button onclick="loadDataExcel()">Ambil Data dari Excel</button>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🎓</span>
+      <div>
+        <div class="brand-title">Alumni Tracker</div>
+        <div class="brand-sub">UMM</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" onclick="showTab('dashboard')">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a href="#" class="nav-item" onclick="showTab('data')">
+        <span class="nav-icon">👥</span> Data Alumni
+      </a>
+      <a href="#" class="nav-item" onclick="showTab('verifikasi')">
+        <span class="nav-icon">✅</span> Verifikasi PDDikti
+      </a>
+      <a href="#" class="nav-item" onclick="showTab('tambah')">
+        <span class="nav-icon">➕</span> Tambah Alumni
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="logout()">🚪 Logout</button>
+    </div>
+  </aside>
 
-  <h2>Tambah Data Alumni</h2>
-  <input type="text" id="nama" placeholder="Nama Alumni">
-  <input type="text" id="prodi" placeholder="Program Studi">
-  <input type="text" id="tahun" placeholder="Tahun Lulus">
-  <input type="text" id="pekerjaan" placeholder="Pekerjaan">
-  <button onclick="tambahAlumni()">Tambah</button>
+  <!-- CONTENT AREA -->
+  <main class="main-content">
 
-  <h2>Cari Alumni</h2>
-  <input type="text" id="search" placeholder="Cari nama...">
-  <button onclick="cariAlumni()">Cari</button>
+    <!-- HEADER -->
+    <header class="topbar">
+      <div>
+        <h2 class="page-title" id="pageTitle">Dashboard</h2>
+        <p class="page-sub">Selamat datang, Admin</p>
+      </div>
+      <button class="btn btn-primary" onclick="loadDataExcel()">
+        🔄 Muat Ulang Data
+      </button>
+    </header>
 
-  <h2>Data Alumni</h2>
-  <ul id="listAlumni"></ul>
+    <!-- TAB: DASHBOARD -->
+    <div id="tab-dashboard" class="tab-content active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-label">Total Alumni</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon">✅</div>
+          <div class="stat-value" id="statVerified">0</div>
+          <div class="stat-label">Terverifikasi PDDikti</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-value" id="statPending">0</div>
+          <div class="stat-label">Belum Diverifikasi</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-icon">❌</div>
+          <div class="stat-value" id="statNotFound">0</div>
+          <div class="stat-label">Tidak Ditemukan</div>
+        </div>
+      </div>
 
+      <div class="card">
+        <div class="card-header">
+          <h3>Preview Data Alumni</h3>
+          <span class="badge" id="badgeTotal">0 data</span>
+        </div>
+        <p class="text-muted" id="dashboardMsg">Klik <strong>Muat Ulang Data</strong> untuk memuat data dari Google Sheets.</p>
+        <div id="previewTable"></div>
+      </div>
+    </div>
+
+    <!-- TAB: DATA ALUMNI -->
+    <div id="tab-data" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3>Data Alumni UMM</h3>
+          <div class="search-box">
+            <input type="text" id="search" placeholder="🔍 Cari nama alumni...">
+            <button class="btn btn-secondary" onclick="cariAlumni()">Cari</button>
+          </div>
+        </div>
+        <div id="tableWrapper">
+          <p class="text-muted">Belum ada data. Klik <strong>Muat Ulang Data</strong> di pojok kanan atas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: VERIFIKASI -->
+    <div id="tab-verifikasi" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3>✅ Verifikasi Data Alumni ke PDDikti</h3>
+        </div>
+        <p class="text-muted">
+          Fitur ini memverifikasi data alumni UMM dengan membuka halaman pencarian di 
+          <strong>PDDikti Kemdiktisaintek</strong>. Setiap alumni akan dicek berdasarkan nama di database resmi.
+        </p>
+
+        <div class="verif-controls">
+          <input type="text" id="verifNama" placeholder="Masukkan nama alumni untuk verifikasi...">
+          <button class="btn btn-primary" onclick="verifikasiSatu()">🔍 Verifikasi Satu</button>
+          <button class="btn btn-green" onclick="verifikasiSemua()">✅ Verifikasi Semua</button>
+        </div>
+
+        <div id="verifResult"></div>
+
+        <div class="pddikti-info">
+          <h4>ℹ️ Tentang PDDikti</h4>
+          <p>PDDikti (Pangkalan Data Pendidikan Tinggi) adalah sistem resmi Kemdiktisaintek untuk verifikasi data mahasiswa dan alumni perguruan tinggi di Indonesia.</p>
+          <a href="https://pddikti.kemdiktisaintek.go.id/" target="_blank" class="btn btn-outline">
+            🌐 Buka PDDikti
+          </a>
+        </div>
+      </div>
+
+      <!-- Tabel Hasil Verifikasi -->
+      <div class="card" id="verifTableCard" style="display:none;">
+        <div class="card-header">
+          <h3>Hasil Verifikasi</h3>
+          <span class="badge" id="verifCount">0 data</span>
+        </div>
+        <div id="verifTableWrapper"></div>
+      </div>
+    </div>
+
+    <!-- TAB: TAMBAH -->
+    <div id="tab-tambah" class="tab-content">
+      <div class="card" style="max-width:520px;">
+        <div class="card-header">
+          <h3>➕ Tambah Data Alumni</h3>
+        </div>
+        <div class="form-group">
+          <label>Nama Alumni</label>
+          <input type="text" id="nama" placeholder="Contoh: Budi Santoso">
+        </div>
+        <div class="form-group">
+          <label>NIM</label>
+          <input type="text" id="nim" placeholder="Contoh: 202310370311XXX">
+        </div>
+        <div class="form-group">
+          <label>Program Studi</label>
+          <input type="text" id="prodi" placeholder="Contoh: Teknik Informatika">
+        </div>
+        <div class="form-group">
+          <label>Tahun Lulus</label>
+          <input type="text" id="tahun" placeholder="Contoh: 2023">
+        </div>
+        <div class="form-group">
+          <label>Pekerjaan Sekarang</label>
+          <input type="text" id="pekerjaan" placeholder="Contoh: Software Engineer">
+        </div>
+        <button class="btn btn-primary" onclick="tambahAlumni()">➕ Tambah Alumni</button>
+        <p id="tambahMsg" style="display:none; margin-top:10px;"></p>
+      </div>
+    </div>
+
+  </main>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
