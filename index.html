@@ -3,199 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistem Pelacakan Alumni UMM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <title>Login Alumni — Sistem Pelacakan Alumni UMM</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
 
-<!-- LOGIN PAGE -->
-<div id="loginPage" class="login-wrapper">
-  <div class="login-card">
-    <div class="login-logo">🎓</div>
-    <h1 class="login-title">Alumni Tracker</h1>
-    <p class="login-sub">Universitas Muhammadiyah Malang</p>
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" id="username" placeholder="Masukkan username">
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="password" placeholder="Masukkan password">
-    </div>
-    <button class="btn btn-primary btn-full" onclick="login()">Masuk</button>
-    <p id="loginError" class="error-msg" style="display:none;">Username atau password salah.</p>
-  </div>
-</div>
-
-<!-- MAIN PAGE -->
-<div id="mainPage" style="display:none;">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <span class="brand-icon">🎓</span>
-      <div>
-        <div class="brand-title">Alumni Tracker</div>
-        <div class="brand-sub">UMM</div>
+      <!-- Logo -->
+      <div class="auth-logo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm-1 13.99l-7-3.82V17l7 4 7-4v-3.83l-7 3.82z"/>
+        </svg>
       </div>
-    </div>
-    <nav class="sidebar-nav">
-      <a href="#" class="nav-item active" onclick="showTab('dashboard')">
-        <span class="nav-icon">📊</span> Dashboard
-      </a>
-      <a href="#" class="nav-item" onclick="showTab('data')">
-        <span class="nav-icon">👥</span> Data Alumni
-      </a>
-      <a href="#" class="nav-item" onclick="showTab('verifikasi')">
-        <span class="nav-icon">✅</span> Verifikasi PDDikti
-      </a>
-      <a href="#" class="nav-item" onclick="showTab('tambah')">
-        <span class="nav-icon">➕</span> Tambah Alumni
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <button class="btn-logout" onclick="logout()">🚪 Logout</button>
-    </div>
-  </aside>
 
-  <!-- CONTENT AREA -->
-  <main class="main-content">
+      <h1 class="auth-title">Login Alumni</h1>
+      <p class="auth-subtitle">Sistem Pelacakan Alumni<br>Universitas Muhammadiyah Malang</p>
 
-    <!-- HEADER -->
-    <header class="topbar">
-      <div>
-        <h2 class="page-title" id="pageTitle">Dashboard</h2>
-        <p class="page-sub">Selamat datang, Admin</p>
+      <div class="error-msg" id="errorMsg">
+        <strong>Login gagal.</strong> NIM atau Program Studi tidak ditemukan dalam sistem.
       </div>
-      <button class="btn btn-primary" onclick="loadDataExcel()">
-        🔄 Muat Ulang Data
+
+      <div class="form-group">
+        <label class="form-label" for="nim">Nomor Induk Mahasiswa (NIM)</label>
+        <span class="form-hint">Contoh: 95620625</span>
+        <input type="text" id="nim" class="form-control" placeholder="Masukkan NIM kamu" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="prodi">Program Studi</label>
+        <span class="form-hint">Pilih prodi sesuai yang tercatat di sistem</span>
+        <select id="prodi" class="form-control">
+          <option value="">— Pilih Program Studi —</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" onclick="doLogin()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+          <path d="M10 17l5-5-5-5v10zm-8 5V2l2 2v14l-2 2zm18 0l-2-2V4l2-2v20z"/>
+        </svg>
+        Masuk sebagai Alumni
       </button>
-    </header>
 
-    <!-- TAB: DASHBOARD -->
-    <div id="tab-dashboard" class="tab-content active">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">👥</div>
-          <div class="stat-value" id="statTotal">0</div>
-          <div class="stat-label">Total Alumni</div>
-        </div>
-        <div class="stat-card green">
-          <div class="stat-icon">✅</div>
-          <div class="stat-value" id="statVerified">0</div>
-          <div class="stat-label">Terverifikasi PDDikti</div>
-        </div>
-        <div class="stat-card yellow">
-          <div class="stat-icon">⏳</div>
-          <div class="stat-value" id="statPending">0</div>
-          <div class="stat-label">Belum Diverifikasi</div>
-        </div>
-        <div class="stat-card red">
-          <div class="stat-icon">❌</div>
-          <div class="stat-value" id="statNotFound">0</div>
-          <div class="stat-label">Tidak Ditemukan</div>
-        </div>
-      </div>
+      <div class="auth-divider">atau</div>
 
-      <div class="card">
-        <div class="card-header">
-          <h3>Preview Data Alumni</h3>
-          <span class="badge" id="badgeTotal">0 data</span>
-        </div>
-        <p class="text-muted" id="dashboardMsg">Klik <strong>Muat Ulang Data</strong> untuk memuat data dari Google Sheets.</p>
-        <div id="previewTable"></div>
+      <button class="btn btn-ghost" onclick="window.location='pages/admin-login.html'">
+        🔐 Login sebagai Administrator
+      </button>
+
+      <div class="auth-footer">
+        &copy; 2026 Alumni Universitas Muhammadiyah Malang<br>
+        <span>Sistem Pelacakan Data Alumni</span>
       </div>
     </div>
+  </div>
 
-    <!-- TAB: DATA ALUMNI -->
-    <div id="tab-data" class="tab-content">
-      <div class="card">
-        <div class="card-header">
-          <h3>Data Alumni UMM</h3>
-          <div class="search-box">
-            <input type="text" id="search" placeholder="🔍 Cari nama alumni...">
-            <button class="btn btn-secondary" onclick="cariAlumni()">Cari</button>
-          </div>
-        </div>
-        <div id="tableWrapper">
-          <p class="text-muted">Belum ada data. Klik <strong>Muat Ulang Data</strong> di pojok kanan atas.</p>
-        </div>
-      </div>
-    </div>
+  <script src="js/script.js"></script>
+  <script>
+    // Populate prodi dropdown
+    const prodiSel = document.getElementById('prodi');
+    PRODI_LIST.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p;
+      opt.textContent = p;
+      prodiSel.appendChild(opt);
+    });
 
-    <!-- TAB: VERIFIKASI -->
-    <div id="tab-verifikasi" class="tab-content">
-      <div class="card">
-        <div class="card-header">
-          <h3>✅ Verifikasi Data Alumni ke PDDikti</h3>
-        </div>
-        <p class="text-muted">
-          Fitur ini memverifikasi data alumni UMM dengan membuka halaman pencarian di 
-          <strong>PDDikti Kemdiktisaintek</strong>. Setiap alumni akan dicek berdasarkan nama di database resmi.
-        </p>
+    // If already logged in as alumni, redirect
+    if (isAlumniLoggedIn()) {
+      window.location.href = 'pages/alumni-dashboard.html';
+    }
 
-        <div class="verif-controls">
-          <input type="text" id="verifNama" placeholder="Masukkan nama alumni untuk verifikasi...">
-          <button class="btn btn-primary" onclick="verifikasiSatu()">🔍 Verifikasi Satu</button>
-          <button class="btn btn-green" onclick="verifikasiSemua()">✅ Verifikasi Semua</button>
-        </div>
+    function doLogin() {
+      const nim = document.getElementById('nim').value.trim();
+      const prodi = document.getElementById('prodi').value;
+      const err = document.getElementById('errorMsg');
 
-        <div id="verifResult"></div>
+      err.classList.remove('show');
 
-        <div class="pddikti-info">
-          <h4>ℹ️ Tentang PDDikti</h4>
-          <p>PDDikti (Pangkalan Data Pendidikan Tinggi) adalah sistem resmi Kemdiktisaintek untuk verifikasi data mahasiswa dan alumni perguruan tinggi di Indonesia.</p>
-          <a href="https://pddikti.kemdiktisaintek.go.id/" target="_blank" class="btn btn-outline">
-            🌐 Buka PDDikti
-          </a>
-        </div>
-      </div>
+      if (!nim || !prodi) {
+        err.textContent = 'Mohon isi NIM dan Program Studi terlebih dahulu.';
+        err.classList.add('show');
+        return;
+      }
 
-      <!-- Tabel Hasil Verifikasi -->
-      <div class="card" id="verifTableCard" style="display:none;">
-        <div class="card-header">
-          <h3>Hasil Verifikasi</h3>
-          <span class="badge" id="verifCount">0 data</span>
-        </div>
-        <div id="verifTableWrapper"></div>
-      </div>
-    </div>
+      const alumni = alumniLogin(nim, prodi);
+      if (alumni) {
+        window.location.href = 'pages/alumni-dashboard.html';
+      } else {
+        err.textContent = 'NIM atau Program Studi tidak cocok dengan data kami. Pastikan data kamu sudah terdaftar.';
+        err.classList.add('show');
+        document.getElementById('nim').focus();
+      }
+    }
 
-    <!-- TAB: TAMBAH -->
-    <div id="tab-tambah" class="tab-content">
-      <div class="card" style="max-width:520px;">
-        <div class="card-header">
-          <h3>➕ Tambah Data Alumni</h3>
-        </div>
-        <div class="form-group">
-          <label>Nama Alumni</label>
-          <input type="text" id="nama" placeholder="Contoh: Budi Santoso">
-        </div>
-        <div class="form-group">
-          <label>NIM</label>
-          <input type="text" id="nim" placeholder="Contoh: 202310370311XXX">
-        </div>
-        <div class="form-group">
-          <label>Program Studi</label>
-          <input type="text" id="prodi" placeholder="Contoh: Teknik Informatika">
-        </div>
-        <div class="form-group">
-          <label>Tahun Lulus</label>
-          <input type="text" id="tahun" placeholder="Contoh: 2023">
-        </div>
-        <div class="form-group">
-          <label>Pekerjaan Sekarang</label>
-          <input type="text" id="pekerjaan" placeholder="Contoh: Software Engineer">
-        </div>
-        <button class="btn btn-primary" onclick="tambahAlumni()">➕ Tambah Alumni</button>
-        <p id="tambahMsg" style="display:none; margin-top:10px;"></p>
-      </div>
-    </div>
-
-  </main>
-</div>
-
-<script src="script.js"></script>
+    // Enter key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+  </script>
 </body>
 </html>
