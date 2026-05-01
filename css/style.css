@@ -336,8 +336,7 @@ select.form-control option { background: var(--bg-card); }
    DASHBOARD LAYOUT
    ============================================= */
 .dashboard-layout {
-  display: grid;
-  grid-template-columns: 240px 1fr;
+  display: block;
   min-height: 100vh;
 }
 
@@ -933,9 +932,6 @@ tbody td {
 
 @media (max-width: 640px) {
   .form-grid { grid-template-columns: 1fr; }
-  .dashboard-layout { grid-template-columns: 1fr; }
-  .sidebar { transform: translateX(-100%); }
-  .main-content { margin-left: 0; }
 }
 
 .radio-group {
