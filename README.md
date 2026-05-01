@@ -1,88 +1,104 @@
-# 🎓 Alumni Tracker — Sistem Pelacakan Alumni UMM
+# 🎓 Sistem Pelacakan Alumni UMM
 
-Website untuk menampilkan, mencari, dan memverifikasi data alumni Universitas Muhammadiyah Malang (UMM) menggunakan data dari Google Sheets dan verifikasi ke PDDikti Kemdiktisaintek.
+Sistem pelacakan data alumni **Universitas Muhammadiyah Malang** berbasis web statis (HTML, CSS, JavaScript murni). Tidak memerlukan backend atau server — bisa langsung dihosting di GitHub Pages, Vercel, atau Netlify.
 
 ---
 
-## 🚀 Fitur
+## 📁 Struktur Folder
 
-- 🔐 **Login** — autentikasi sederhana untuk mengamankan akses
-- 📊 **Dashboard** — statistik total alumni, terverifikasi, belum dicek, tidak ditemukan
-- 👥 **Data Alumni** — tampilan tabel data alumni dari Google Sheets + fitur pencarian
-- ✅ **Verifikasi PDDikti** — verifikasi setiap alumni ke database resmi PDDikti Kemdiktisaintek
-- ➕ **Tambah Alumni** — form untuk menambahkan data alumni baru
+```
+alumni-tracker/
+├── index.html               # Login Alumni (halaman utama)
+├── css/
+│   └── style.css            # Semua styling
+├── js/
+│   └── data.js              # Data alumni + fungsi database (localStorage)
+└── pages/
+    ├── admin-login.html     # Login Administrator
+    ├── admin-dashboard.html # Dashboard & manajemen alumni (admin)
+    └── alumni-dashboard.html # Profil & edit data (alumni)
+```
 
 ---
 
 ## 🔐 Akun Login
 
-| Username | Password |
-|----------|----------|
-| admin    | 123      |
+### Admin
+| Field | Value |
+|-------|-------|
+| Username | `admin` |
+| Password | `admin123` |
+
+### Alumni
+Login menggunakan **NIM** + **Program Studi** yang sudah terdaftar.
+
+Contoh akun alumni yang sudah ada data:
+| NIM | Program Studi |
+|-----|---------------|
+| `95620625` | Akuntansi |
+| `95620626` | Akuntansi |
+| `93102035` | Magister - Sosiologi Pedesaan |
 
 ---
 
-## 🌐 Demo Website
+## ✨ Fitur
 
-🔗 [https://alumni-tracker-virid.vercel.app/](https://alumni-tracker-virid.vercel.app/)
+### Portal Alumni
+- Login dengan NIM + Program Studi
+- Isi / edit data pribadi:
+  - Email & No. HP
+  - Media sosial (LinkedIn, Instagram, Facebook, TikTok)
+  - Tempat kerja, alamat kerja, posisi
+  - Status (PNS / Swasta / Wirausaha)
+  - Sosial media tempat kerja
+- Data langsung tersimpan dan terlihat di dashboard admin
+
+### Dashboard Admin
+- Statistik: total alumni, sudah isi, belum isi, % kelengkapan
+- Tabel alumni lengkap dengan filter & pencarian
+- Filter berdasarkan status data & fakultas
+- Tambah mahasiswa baru (nama, NIM, tahun masuk, tanggal lulus, fakultas, prodi)
+- Lihat detail profil setiap alumni
+- Admin **tidak bisa** mengubah data profil alumni
 
 ---
 
-## 🛠️ Teknologi
+## 🚀 Cara Menjalankan
 
-- HTML5, CSS3, JavaScript (Vanilla)
-- Google Sheets (sebagai sumber data)
-- [OpenSheet API](https://opensheet.elk.sh/) — konversi Google Sheets ke JSON
-- [PDDikti Kemdiktisaintek](https://pddikti.kemdiktisaintek.go.id/) — verifikasi data alumni
+### Lokal (VS Code)
+1. Clone repo ini
+2. Buka folder dengan VS Code
+3. Install ekstensi **Live Server**
+4. Klik kanan `index.html` → **Open with Live Server**
+
+### Deploy ke Vercel / Netlify
+1. Push ke GitHub
+2. Connect repo ke Vercel atau Netlify
+3. Deploy langsung (tidak perlu build command)
+
+### GitHub Pages
+1. Push ke GitHub
+2. Buka Settings → Pages → Source: `main` branch, folder `/` (root)
+3. Akses di `https://username.github.io/nama-repo`
 
 ---
 
-## 📊 Sumber Data
+## 💾 Penyimpanan Data
 
-Data alumni diambil dari Google Sheets melalui OpenSheet API:  
-`https://opensheet.elk.sh/19Q5RlqlZ2Wi1Y18gUcElKHvQak5JVNmykU5KIvrzdGM/1`
+Sistem menggunakan `localStorage` browser sebagai database sementara. Data tersimpan di browser masing-masing pengguna.
+
+> **Catatan**: Untuk produksi dengan banyak pengguna, disarankan mengintegrasikan dengan backend (Firebase, Supabase, dll).
 
 ---
 
-## ✅ Pengujian Sistem
+## 🛠️ Tech Stack
 
-Pengujian dilakukan berdasarkan aspek kualitas sistem (fungsionalitas, keandalan, kegunaan, dan efisiensi).
+- HTML5
+- CSS3 (Custom Properties, Grid, Flexbox)
+- JavaScript (Vanilla, tanpa framework)
+- Google Fonts (Plus Jakarta Sans + Space Mono)
+- localStorage untuk persistensi data
 
-### Tabel Pengujian Fungsional
+---
 
-| No | Fitur yang Diuji | Skenario Uji | Input | Expected Output | Actual Output | Status |
-|----|-----------------|--------------|-------|-----------------|---------------|--------|
-| 1 | Login | Login dengan kredensial benar | username: `admin`, password: `123` | Masuk ke halaman utama | Berhasil masuk ke dashboard | ✅ Pass |
-| 2 | Login | Login dengan kredensial salah | username: `admin`, password: `salah` | Muncul pesan error | Muncul "Username atau password salah" | ✅ Pass |
-| 3 | Muat Data | Ambil data dari Google Sheets | Klik tombol "Muat Ulang Data" | Data alumni tampil dalam tabel | Data alumni berhasil ditampilkan | ✅ Pass |
-| 4 | Pencarian | Cari alumni berdasarkan nama | Ketik sebagian nama alumni | Daftar alumni yang cocok tampil | Hasil pencarian sesuai kata kunci | ✅ Pass |
-| 5 | Pencarian | Cari dengan nama yang tidak ada | Ketik nama tidak valid | Tampil pesan "Tidak ada data ditemukan" | Tabel kosong dengan pesan | ✅ Pass |
-| 6 | Tambah Alumni | Tambah data alumni baru | Isi semua field dan klik Tambah | Data muncul di list alumni | Alumni baru berhasil ditambahkan | ✅ Pass |
-| 7 | Tambah Alumni | Submit dengan field kosong | Klik Tambah tanpa mengisi nama | Muncul pesan validasi error | Muncul "Nama, Prodi, dan Tahun Lulus wajib diisi" | ✅ Pass |
-| 8 | Verifikasi PDDikti | Verifikasi satu alumni | Input nama alumni, klik Verifikasi Satu | Halaman PDDikti terbuka dengan hasil pencarian | Tab baru PDDikti terbuka dengan query nama | ✅ Pass |
-| 9 | Verifikasi PDDikti | Verifikasi semua alumni | Klik tombol "Verifikasi Semua" | Daftar seluruh alumni tampil dengan tombol cek | Semua alumni tampil beserta link PDDikti masing-masing | ✅ Pass |
-| 10 | Verifikasi PDDikti | Tandai status verifikasi | Klik tombol ✅ atau ❌ per alumni | Status berubah dan tersimpan | Status tersimpan di localStorage | ✅ Pass |
-| 11 | Logout | Keluar dari sistem | Klik tombol Logout | Kembali ke halaman login | Sesi terhapus, kembali ke login | ✅ Pass |
-| 12 | Navigasi | Pindah antar tab | Klik menu sidebar | Halaman yang sesuai tampil | Tab berganti sesuai menu yang diklik | ✅ Pass |
-
-### Tabel Pengujian Verifikasi PDDikti (Sampel Alumni UMM)
-
-| No | Nama Alumni | Program Studi | Link Verifikasi PDDikti | Status |
-|----|-------------|---------------|------------------------|--------|
-| 1  | (sesuai data Google Sheets) | (sesuai data) | [Cek di PDDikti](https://pddikti.kemdiktisaintek.go.id/search/) | ⏳ Dicek manual |
-| 2  | (sesuai data Google Sheets) | (sesuai data) | [Cek di PDDikti](https://pddikti.kemdiktisaintek.go.id/search/) | ⏳ Dicek manual |
-| 3  | (sesuai data Google Sheets) | (sesuai data) | [Cek di PDDikti](https://pddikti.kemdiktisaintek.go.id/search/) | ⏳ Dicek manual |
-
-> **Catatan:** Proses verifikasi dilakukan secara manual dengan membuka link PDDikti per alumni dan mencocokkan data nama, NIM, dan program studi. Status diperbarui setelah pengecekan manual selesai.
-
-## 📌 Catatan
-
-- Data hanya digunakan untuk kepentingan pembelajaran
-- Dilarang menyebarkan data untuk kepentingan lain
-- Proses verifikasi PDDikti dilakukan secara manual — sistem membuka halaman PDDikti untuk setiap alumni
-
-
-## 👩‍💻 Author
-
-Dibuat oleh **Rhima Muthiya Qanita**  
-NIM: 202310370311401 | Rekayasa Kebutuhan C
+&copy; 2026 Alumni Universitas Muhammadiyah Malang
