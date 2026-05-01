@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Alumni — Sistem Alumni UMM</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="dashboard-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm-1 13.99l-7-3.82V17l7 4 7-4v-3.83l-7 3.82z"/></svg>
+        </div>
+        <div class="sidebar-brand-text">
+          <strong>Alumni UMM</strong>
+          <span>Portal Alumni</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Menu Saya</div>
+      <a class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        Profil Saya
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebarAvatar">?</div>
+        <div class="user-meta">
+          <strong id="sidebarName">—</strong>
+          <span id="sidebarNim">NIM: —</span>
+        </div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+        Keluar
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-breadcrumb">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        <span class="current">Profil Saya</span>
+      </div>
+      <div class="topbar-date" id="dateDisplay"></div>
+    </header>
+
+    <div class="page-content">
+      <!-- Profile Header Card -->
+      <div class="profile-header-card">
+        <div class="profile-avatar" id="profileAvatar">?</div>
+        <div class="profile-info">
+          <h2 id="profileName">Memuat...</h2>
+          <p id="profileProdi"></p>
+          <p class="profile-nim" id="profileNim"></p>
+        </div>
+        <div style="margin-left:auto">
+          <span class="badge" id="profileStatusBadge" style="padding:0.35rem 0.85rem">—</span>
+        </div>
+      </div>
+
+      <!-- FORM: KONTAK PRIBADI -->
+      <form id="profileForm">
+
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-card-icon teal">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div>
+              <div class="form-card-title">Kontak Pribadi</div>
+            </div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <span class="form-hint">Contoh: nama@gmail.com</span>
+                <input type="email" id="f_email" class="form-control" placeholder="alamat.email@gmail.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label">No. HP / WhatsApp</label>
+                <span class="form-hint">Tanpa angka 0 di depan, contoh: 81234567890</span>
+                <input type="text" id="f_nohp" class="form-control" placeholder="81234567890">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM: SOSIAL MEDIA PRIBADI -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-card-icon red">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            </div>
+            <div>
+              <div class="form-card-title">Media Sosial Pribadi</div>
+            </div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">LinkedIn</label>
+                <span class="form-hint">Contoh: https://linkedin.com/in/namaanda</span>
+                <input type="url" id="f_linkedin" class="form-control" placeholder="https://linkedin.com/in/...">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Instagram</label>
+                <span class="form-hint">Contoh: https://instagram.com/namaanda</span>
+                <input type="url" id="f_instagram" class="form-control" placeholder="https://instagram.com/...">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Facebook</label>
+                <span class="form-hint">Contoh: https://facebook.com/namaanda</span>
+                <input type="url" id="f_facebook" class="form-control" placeholder="https://facebook.com/...">
+              </div>
+              <div class="form-group">
+                <label class="form-label">TikTok</label>
+                <span class="form-hint">Contoh: https://tiktok.com/@namaanda</span>
+                <input type="url" id="f_tiktok" class="form-control" placeholder="https://tiktok.com/@...">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM: DATA PEKERJAAN -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-card-icon green">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.06 15.93 0 13.36 0c-1.3 0-2.48.52-3.36 1.44L10 2l-1.04-1C8.12.52 6.94 0 5.64 0 3.06 0 1 2.06 1 4.64c0 .48.1.92.18 1.36H1c-1.1 0-1.99.9-1.99 2L-1 19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+            </div>
+            <div>
+              <div class="form-card-title">Data Pekerjaan</div>
+            </div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-group">
+              <label class="form-label">Status Pekerjaan</label>
+              <span class="form-hint">Pilih status pekerjaan kamu saat ini</span>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="status" value="PNS" id="r_pns">
+                  <label for="r_pns">PNS / ASN</label>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="status" value="Swasta" id="r_swasta">
+                  <label for="r_swasta">Swasta / Karyawan</label>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="status" value="Wirausaha" id="r_wirausaha">
+                  <label for="r_wirausaha">Wirausaha</label>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Nama Tempat Kerja</label>
+                <span class="form-hint">Contoh: PT. Bank Mandiri Tbk</span>
+                <input type="text" id="f_tempat_kerja" class="form-control" placeholder="Nama perusahaan / instansi">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Posisi / Jabatan</label>
+                <span class="form-hint">Contoh: Senior Accountant</span>
+                <input type="text" id="f_posisi" class="form-control" placeholder="Jabatan kamu saat ini">
+              </div>
+              <div class="form-group" style="grid-column:span 2">
+                <label class="form-label">Alamat Tempat Kerja</label>
+                <span class="form-hint">Contoh: Jl. Ahmad Yani No. 100, Surabaya</span>
+                <input type="text" id="f_alamat_kerja" class="form-control" placeholder="Alamat lengkap tempat kerja">
+              </div>
+              <div class="form-group" style="grid-column:span 2">
+                <label class="form-label">Sosial Media / Website Tempat Kerja</label>
+                <span class="form-hint">Bisa berupa link Instagram, LinkedIn perusahaan, atau website resmi</span>
+                <input type="url" id="f_sosmed_kerja" class="form-control" placeholder="https://...">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- Sticky Save Bar -->
+      <div class="sticky-save">
+        <button class="btn btn-primary" onclick="saveProfile()">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+          Simpan Perubahan
+        </button>
+        <span id="saveStatus" style="font-size:0.85rem;color:var(--text-muted)"></span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<script src="../js/script.js"></script>
+<script>
+  // Auth guard
+  if (!isAlumniLoggedIn()) window.location.href = '../index.html';
+
+  const session = getAlumniSession();
+  const alumni = getAlumniByNIM(session.nim);
+
+  // Date
+  const d = new Date();
+  document.getElementById('dateDisplay').textContent = d.toLocaleDateString('id-ID', {
+    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+  });
+
+  // Populate profile header
+  function initials(name) {
+    return name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  }
+
+  if (alumni) {
+    const ini = initials(alumni.nama);
+    document.getElementById('profileAvatar').textContent = ini;
+    document.getElementById('sidebarAvatar').textContent = ini;
+    document.getElementById('profileName').textContent = alumni.nama;
+    document.getElementById('sidebarName').textContent = alumni.nama.split(' ')[0];
+    document.getElementById('sidebarNim').textContent = 'NIM: ' + alumni.nim;
+    document.getElementById('profileProdi').textContent = alumni.prodi + ' · ' + alumni.fakultas;
+    document.getElementById('profileNim').textContent = 'NIM: ' + alumni.nim + ' · Lulus: ' + alumni.tanggal_lulus;
+
+    const filled = isDataFilled(alumni);
+    const badge = document.getElementById('profileStatusBadge');
+    badge.textContent = filled ? '✓ Data Lengkap' : '○ Belum Isi';
+    badge.className = `badge ${filled ? 'badge-filled' : 'badge-empty'}`;
+
+    // Fill form
+    document.getElementById('f_email').value = alumni.email || '';
+    document.getElementById('f_nohp').value = alumni.no_hp || '';
+    document.getElementById('f_linkedin').value = alumni.linkedin || '';
+    document.getElementById('f_instagram').value = alumni.instagram || '';
+    document.getElementById('f_facebook').value = alumni.facebook || '';
+    document.getElementById('f_tiktok').value = alumni.tiktok || '';
+    document.getElementById('f_tempat_kerja').value = alumni.tempat_kerja || '';
+    document.getElementById('f_posisi').value = alumni.posisi || '';
+    document.getElementById('f_alamat_kerja').value = alumni.alamat_kerja || '';
+    document.getElementById('f_sosmed_kerja').value = alumni.sosmed_tempat_kerja || '';
+
+    if (alumni.status) {
+      const r = document.querySelector(`input[name="status"][value="${alumni.status}"]`);
+      if (r) r.checked = true;
+    }
+  }
+
+  function saveProfile() {
+    const status = document.querySelector('input[name="status"]:checked');
+    const data = {
+      email: document.getElementById('f_email').value.trim(),
+      no_hp: document.getElementById('f_nohp').value.trim(),
+      linkedin: document.getElementById('f_linkedin').value.trim(),
+      instagram: document.getElementById('f_instagram').value.trim(),
+      facebook: document.getElementById('f_facebook').value.trim(),
+      tiktok: document.getElementById('f_tiktok').value.trim(),
+      tempat_kerja: document.getElementById('f_tempat_kerja').value.trim(),
+      posisi: document.getElementById('f_posisi').value.trim(),
+      alamat_kerja: document.getElementById('f_alamat_kerja').value.trim(),
+      sosmed_tempat_kerja: document.getElementById('f_sosmed_kerja').value.trim(),
+      status: status ? status.value : '',
+    };
+
+    updateAlumni(alumni.nim, data);
+
+    // Update badge
+    const filled = isDataFilled({ ...alumni, ...data });
+    const badge = document.getElementById('profileStatusBadge');
+    badge.textContent = filled ? '✓ Data Lengkap' : '○ Belum Isi';
+    badge.className = `badge ${filled ? 'badge-filled' : 'badge-empty'}`;
+
+    showToast('Data berhasil disimpan!', 'success');
+    document.getElementById('saveStatus').textContent = 'Tersimpan · ' + new Date().toLocaleTimeString('id-ID');
+  }
+
+  function doLogout() {
+    logout();
+    window.location.href = '../index.html';
+  }
+
+  function showToast(msg, type = 'success') {
+    const toast = document.getElementById('toast');
+    const icon = type === 'success'
+      ? `<svg viewBox="0 0 24 24" width="18" height="18" fill="#10b981"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`
+      : `<svg viewBox="0 0 24 24" width="18" height="18" fill="#e74c3c"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+    document.getElementById('toastIcon').innerHTML = icon;
+    document.getElementById('toastMsg').textContent = msg;
+    toast.className = `toast ${type} show`;
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>
