@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Alumni — Sistem Pelacakan Alumni UMM</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <div class="auth-wrapper">
@@ -47,7 +47,7 @@
 
       <div class="auth-divider">atau</div>
 
-      <button class="btn btn-ghost" onclick="window.location='pages/admin-login.html'">
+      <button class="btn btn-ghost" onclick="window.location='pages/login-admin.html'">
         🔐 Login sebagai Administrator
       </button>
 
@@ -58,7 +58,7 @@
     </div>
   </div>
 
-  <script src="js/script.js"></script>
+  <script src="../JS/script.js"></script>
   <script>
     // Populate prodi dropdown
     const prodiSel = document.getElementById('prodi');
@@ -71,7 +71,7 @@
 
     // If already logged in as alumni, redirect
     if (isAlumniLoggedIn()) {
-      window.location.href = 'pages/alumni-dashboard.html';
+      window.location.href = 'pages/dashboard-alumni.html';
     }
 
     function doLogin() {
@@ -89,7 +89,7 @@
 
       const alumni = alumniLogin(nim, prodi);
       if (alumni) {
-        window.location.href = 'pages/alumni-dashboard.html';
+        window.location.href = 'pages/dashboard-alumni.html';
       } else {
         err.textContent = 'NIM atau Program Studi tidak cocok dengan data kami. Pastikan data kamu sudah terdaftar.';
         err.classList.add('show');
