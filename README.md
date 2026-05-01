@@ -1,8 +1,10 @@
 # 🎓 Sistem Pelacakan Alumni UMM
 
-Sistem pelacakan data alumni **Universitas Muhammadiyah Malang** berbasis web statis (HTML, CSS, JavaScript murni). Tidak memerlukan backend atau server — bisa langsung dihosting di GitHub Pages, Vercel, atau Netlify.
-
+Sistem pelacakan data alumni **Universitas Muhammadiyah Malang** berbasis web statis (HTML, CSS, JavaScript murni). 
 ---
+
+### Link Vercel
+https://alumni-tracker-virid.vercel.app/?authuser=0
 
 ## 📁 Struktur Folder
 
@@ -19,8 +21,6 @@ alumni-tracker/
     └── alumni-dashboard.html # Profil & edit data (alumni)
 ```
 
----
-
 ## 🔐 Akun Login
 
 ### Admin
@@ -36,8 +36,6 @@ Contoh akun alumni yang sudah ada data:
 | NIM | Program Studi |
 |-----|---------------|
 | `95620625` | Akuntansi |
-| `95620626` | Akuntansi |
-| `93102035` | Magister - Sosiologi Pedesaan |
 
 ---
 
@@ -47,10 +45,9 @@ Contoh akun alumni yang sudah ada data:
 - Login dengan NIM + Program Studi
 - Isi / edit data pribadi:
   - Email & No. HP
-  - Media sosial (LinkedIn, Instagram, Facebook, TikTok)
+  - Media sosial
   - Tempat kerja, alamat kerja, posisi
   - Status (PNS / Swasta / Wirausaha)
-  - Sosial media tempat kerja
 - Data langsung tersimpan dan terlihat di dashboard admin
 
 ### Dashboard Admin
@@ -60,26 +57,6 @@ Contoh akun alumni yang sudah ada data:
 - Tambah mahasiswa baru (nama, NIM, tahun masuk, tanggal lulus, fakultas, prodi)
 - Lihat detail profil setiap alumni
 - Admin **tidak bisa** mengubah data profil alumni
-
----
-
-## 🚀 Cara Menjalankan
-
-### Lokal (VS Code)
-1. Clone repo ini
-2. Buka folder dengan VS Code
-3. Install ekstensi **Live Server**
-4. Klik kanan `index.html` → **Open with Live Server**
-
-### Deploy ke Vercel / Netlify
-1. Push ke GitHub
-2. Connect repo ke Vercel atau Netlify
-3. Deploy langsung (tidak perlu build command)
-
-### GitHub Pages
-1. Push ke GitHub
-2. Buka Settings → Pages → Source: `main` branch, folder `/` (root)
-3. Akses di `https://username.github.io/nama-repo`
 
 ---
 
