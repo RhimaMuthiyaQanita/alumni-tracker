@@ -231,10 +231,10 @@
   <span id="toastMsg"></span>
 </div>
 
-<script src="../JS/script.js"></script>
+<script src="../js/script.js"></script>
 <script>
   // Auth guard
-  if (!isAdminLoggedIn()) window.location.href = 'pages/login-admin.html';
+  if (!isAdminLoggedIn()) window.location.href = 'login-admin.html';
 
   // Date display
   const d = new Date();
@@ -518,7 +518,7 @@
 
   function doLogout() {
     logout();
-    window.location.href = 'pages/login-admin.html';
+    window.location.href = 'login-admin.html';
   }
 
   function showToast(msg, type = 'success') {
